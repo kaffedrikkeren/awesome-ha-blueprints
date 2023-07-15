@@ -292,6 +292,18 @@ blueprint:
           unit_of_measurement: milliseconds
           mode: box
           step: 10
+    loop_delay:
+      name: (Optional) Loop delay
+      description:
+        Delay used in long press loops
+      default: 0
+      selector:
+        number:
+          min: 0
+          max: 1000
+          unit_of_measurement: milliseconds
+          mode: box
+          step: 10
 # Automation schema
 variables:
   # convert input tags to variables, to be used in templates
@@ -530,7 +542,10 @@ action:
                 sequence:
                   - repeat:
                       while: '{{ repeat.index < button_left_long_max_loop_repeats | int }}'
-                      sequence: !input action_button_left_long
+                      sequence: 
+                        - !input action_button_left_long
+                        - delay:
+                          milliseconds: '{{ loop_delay }}' 
             # if looping is not enabled run the custom action only once
             default: !input action_button_left_long
       - conditions:
@@ -613,7 +628,10 @@ action:
                 sequence:
                   - repeat:
                       while: '{{ repeat.index < button_right_long_max_loop_repeats | int }}'
-                      sequence: !input action_button_right_long
+                      sequence: 
+                        - !input action_button_right_long
+                        - delay:
+                          milliseconds: '{{ loop_delay }}' 
             # if looping is not enabled run the custom action only once
             default: !input action_button_right_long
       - conditions:
@@ -696,7 +714,10 @@ action:
                 sequence:
                   - repeat:
                       while: '{{ repeat.index < button_up_long_max_loop_repeats | int }}'
-                      sequence: !input action_button_up_long
+                      sequence: 
+                        - !input action_button_up_long
+                        - delay:
+                          milliseconds: '{{ loop_delay }}' 
             # if looping is not enabled run the custom action only once
             default: !input action_button_up_long
       - conditions:
@@ -779,7 +800,10 @@ action:
                 sequence:
                   - repeat:
                       while: '{{ repeat.index < button_down_long_max_loop_repeats | int }}'
-                      sequence: !input action_button_down_long
+                      sequence: 
+                        - !input action_button_down_long
+                        - delay:
+                          milliseconds: '{{ loop_delay }}' 
             # if looping is not enabled run the custom action only once
             default: !input action_button_down_long
       - conditions:
